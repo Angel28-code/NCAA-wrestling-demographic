@@ -2,14 +2,53 @@ body {
   background:
     linear-gradient(rgba(255, 246, 224, 0.12), rgba(255, 246, 224, 0.12)),
     url("wrestling-background.svg") center / min(100vw, 1800px) auto fixed;
+  color: #111827;
 }
 
 #quarto-content {
-  background: rgba(255, 255, 255, 0.96);
+  background: rgba(255, 255, 255, 0.97);
+  color: #111827;
   box-shadow: 0 12px 40px rgba(7, 17, 31, 0.32);
+  border: 1px solid rgba(17, 24, 39, 0.08);
   border-radius: 0.75rem;
   margin-bottom: 2rem;
   padding: 1.5rem;
+}
+
+#quarto-content,
+#quarto-content p,
+#quarto-content li,
+#quarto-content h1,
+#quarto-content h2,
+#quarto-content h3,
+#quarto-content h4,
+#quarto-content a,
+#quarto-content .cell-output-display {
+  color: #111827;
+}
+
+.story-wrestler-photo {
+  float: right;
+  width: min(30%, 280px);
+  margin: 0 0 1.25rem 1.5rem;
+  padding: 0.5rem;
+  background: #fff;
+  border: 1px solid rgba(17, 24, 39, 0.12);
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 14px rgba(7, 17, 31, 0.18);
+}
+
+.story-wrestler-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 0.25rem;
+}
+
+.story-wrestler-photo figcaption {
+  margin-top: 0.4rem;
+  font-size: 0.85rem;
+  text-align: center;
 }
 
 @media (min-width: 1200px) {
@@ -21,6 +60,12 @@ body {
 }
 
 @media (max-width: 600px) {
+  .story-wrestler-photo {
+    float: none;
+    width: min(100%, 280px);
+    margin: 0 0 1rem auto;
+  }
+
   body {
     background-size: auto 100vh;
     background-attachment: fixed;
