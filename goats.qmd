@@ -4,3 +4,22 @@ author: Angel Legrand
 format: html
 css: wrestling-background.css
 ---
+
+## All-time Hodge Trophy leaders
+
+This list ranks Division I Hodge Trophy winners by trophy count, then career wins. It is a leaderboard of Hodge winners, not a claim that these are the ten most winning wrestlers regardless of award. For wrestlers with multiple trophies, season statistics use their most recent Hodge-winning season.
+
+| Rank | Wrestler | Hodge trophies (years) | Hodge-season bonus-win rate | Career record (W-L) | Avg. match time |
+|---:|---|---:|---:|---:|---:|
+| 1 | [Cael Sanderson](https://en.wikipedia.org/wiki/Cael_Sanderson) | 3 (2000–02) | N/A | 159–0 | N/A |
+| 2 | [Ben Askren](https://en.wikipedia.org/wiki/Ben_Askren) | 2 (2006–07) | N/A | 153–8 | N/A |
+| 3 | [David Taylor](https://en.wikipedia.org/wiki/David_Taylor_(wrestler)) | 2 (2012, 2014) | N/A | 134–3 | N/A |
+| 4 | [Zain Retherford](https://en.wikipedia.org/wiki/Zain_Retherford) | 2 (2017–18) | [83.9%](https://www.win-magazine.com/2018/03/27/retherford-wins-second-win-magazineculture-house-dan-hodge-trophy/) | 126–3 | N/A |
+| 5 | [Spencer Lee](https://en.wikipedia.org/wiki/Spencer_Lee_(wrestler)) | 2 (2020–21) | N/A | 98–6 | N/A |
+| 6 | [Gable Steveson](https://en.wikipedia.org/wiki/Gable_Steveson) | 2 (2021–22) | N/A | N/A | N/A |
+| 7 | [Kyle Dake](https://en.wikipedia.org/wiki/Kyle_Dake) | 1 (2013) | N/A | 137–4 | N/A |
+| 8 | [Alex Dieringer](https://en.wikipedia.org/wiki/Alex_Dieringer) | 1 (2016) | [82%](https://www.win-magazine.com/2016/03/28/dieringer-wins-2016-win-magazineculture-house-dan-hodge-trophy-presented-by-asics/) | 133–4 | N/A |
+| 9 | [Jordan Burroughs](https://en.wikipedia.org/wiki/Jordan_Burroughs) | 1 (2011) | N/A | 128–20 | N/A |
+| 10 | [Mason Parris](https://en.wikipedia.org/wiki/Mason_Parris) | 1 (2023) | [63.6%](https://www.win-magazine.com/2023/05/01/michigans-mason-parris-wins-2023-win-magazine-culture-house-dan-hodge-trophy-presented-by-asics/) | 124–18 | N/A |
+
+The [WIN Magazine Hodge Trophy archive](https://www.win-magazine.com/win-awards/hodge-trophy/) is the source for award winners and years. Bonus-win rates are shown only when found in a WIN winner feature; N/A means the figure was not verified in the sources consulted. Average match time was not available from a consistent, verifiable source, so it is N/A throughout. Career records are linked to wrestler biographies; Steveson's career total was not verified and is left as N/A.
