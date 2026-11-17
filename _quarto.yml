@@ -11,8 +11,10 @@ website:
         text: Story
       - href: explorer.qmd
         text: Explorer
-      - href: sources.qmd
-        text: Sources
+      - href: goats.qmd
+        text: GOATs
+      - href: about.qmd
+        text: About
 
 format:
   html:

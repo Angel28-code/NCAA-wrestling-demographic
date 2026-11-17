@@ -22,9 +22,9 @@ execute:
   </figcaption>
 </figure>
 
-## Freshman Champions Over the Past 10 Years
+## Freshman Champions from 2015 to 2021
 
-Winning an NCAA Division I wrestling national championship as a true freshman or redshirt freshman is an exceptional feat. The chart below tracks every year from 2015 through 2026, showing the number of true and redshirt freshmen who stood atop the NCAA podium.
+Winning an NCAA Division I wrestling national championship as a true freshman or redshirt freshman is an exceptional feat. The chart below tracks every year from 2015 through 2021, showing the number of true and redshirt freshmen who stood atop the NCAA podium.
 
 ```{r}
 #| echo: false
@@ -50,7 +50,7 @@ freshman_champs <- tribble(
   2021, "Aaron Brooks", "Penn State", "184 lb", "Redshirt Freshman"
 )
 
-yearly_champs <- tibble(year = 2015:2026) |>
+yearly_champs <- tibble(year = 2015:2021) |>
   left_join(
     freshman_champs |>
       group_by(year) |>
@@ -69,7 +69,6 @@ yearly_champs <- tibble(year = 2015:2026) |>
     details = case_when(
       !is.na(details) ~ details,
       year == 2020 ~ "Tournament canceled due to COVID-19",
-      year == 2026 ~ "Upcoming championship / 0 to date",
       TRUE ~ "No freshman champions"
     )
   )
@@ -90,11 +89,11 @@ plot_ly(
   )
 ) |>
   layout(
-    title = list(text = "NCAA DI True & Redshirt Freshman Champions (2015–2026)"),
+    title = list(text = "NCAA DI True & Redshirt Freshman Champions (2015–2021)"),
     xaxis = list(
       title = "Year",
       dtick = 1,
-      range = c(2014.5, 2026.5)
+      range = c(2014.5, 2021.5)
     ),
     yaxis = list(
       title = "Number of Champions",

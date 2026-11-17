@@ -1,0 +1,31 @@
+---
+title: "About"
+author: Angel Legrand
+format: html
+css: wrestling-background.css
+---
+
+Email Address: legrand1angel@gmail.com
+
+This site explores NCAA Division I men's wrestling team performance and championship trends.
+
+The project brings together team standings, championship points, and historical results to make it easier to compare programs across seasons.
+
+## Purpose
+
+The goal is to provide a clear, visual summary of which programs have dominated the sport, how the rankings have shifted over time, and what story the data tells about national wrestling power.
+
+## Data sources
+
+Data sources for team scores and tournament brackets:
+
+- [NCAA Division I Records (D1.pdf)](https://s3.amazonaws.com/fs.ncaa.org/Docs/stats/wrestling_champs_records/D1.pdf)
+- [NCAA Division II Records (D2.pdf)](https://s3.amazonaws.com/fs.ncaa.org/Docs/stats/wrestling_champs_records/D2.pdf)
+- [NCAA Division III Records (D3.pdf)](https://s3.amazonaws.com/fs.ncaa.org/Docs/stats/wrestling_champs_records/D3.pdf)
+- Official tournament brackets and NCAA championship history archives.
+
+## Project scope
+
+The analysis focuses on men’s NCAA wrestling team totals and historical results, with emphasis on how results evolve across different seasons and teams.
+
+[New College of Florida](https://www.ncf.edu/)
