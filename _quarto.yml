@@ -13,6 +13,8 @@ website:
         text: Explorer
       - href: goats.qmd
         text: GOATs
+      - href: where.qmd
+        text: Where
       - href: about.qmd
         text: About
 

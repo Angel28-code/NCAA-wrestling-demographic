@@ -1,0 +1,184 @@
+---
+title: "Where"
+author: "Angel Legrand"
+format: html
+css: wrestling-background.css
+execute:
+  echo: false
+  message: false
+  warning: false
+---
+
+## Best NCAA Wrestlers by College State
+
+Hover over any U.S. state on the map below to see the highest-winning NCAA Division I tournament wrestlers (2022–2025) from colleges in that state, ranked by career tournament-season win percentage.
+
+```{r}
+library(tidyverse)
+library(plotly)
+
+records <- read_csv("ncaa_wrestler_records.csv", show_col_types = FALSE)
+
+school_names <- c(
+  "AF" = "Air Force", "AMER" = "American", "APP" = "App State", "ARMY" = "Army West Point",
+  "ASU" = "Arizona State", "BELL" = "Bellarmine", "BING" = "Binghamton", "BLO" = "Bloomsburg",
+  "BLOO" = "Bloomsburg", "BRWN" = "Brown", "BUCK" = "Bucknell", "BUFF" = "Buffalo",
+  "CAMP" = "Campbell", "CBU" = "California Baptist", "CHAT" = "Chattanooga", "CIT" = "The Citadel",
+  "CLAR" = "Clarion", "CMU" = "Central Michigan", "COL" = "Columbia", "COR" = "Cornell",
+  "CP" = "Cal Poly", "POLY" = "Cal Poly", "CSU" = "Cleveland State", "CSUB" = "CSU Bakersfield",
+  "DREX" = "Drexel", "DUKE" = "Duke", "EDIN" = "Edinboro", "F&M" = "Franklin & Marshall",
+  "FM" = "Franklin & Marshall", "GMU" = "George Mason", "GW" = "Gardner-Webb", "HAR" = "Harvard",
+  "HARV" = "Harvard", "HOF" = "Hofstra", "ILL" = "Illinois", "IND" = "Indiana",
+  "IOWA" = "Iowa", "ISU" = "Iowa State", "KENT" = "Kent State", "LEH" = "Lehigh",
+  "LH" = "Lock Haven", "LHU" = "Lock Haven", "LIU" = "LIU", "LR" = "Little Rock",
+  "UALR" = "Little Rock", "MD" = "Maryland", "MICH" = "Michigan", "MINN" = "Minnesota",
+  "MIZZ" = "Missouri", "MSU" = "Michigan State", "NAVY" = "Navy", "NCST" = "NC State",
+  "NDSU" = "North Dakota State", "NEB" = "Nebraska", "NIU" = "Northern Illinois", "NW" = "Northwestern",
+  "OHIO" = "Ohio", "OHST" = "Ohio State", "OKLA" = "Oklahoma", "OU" = "Oklahoma",
+  "OKST" = "Oklahoma State", "ORST" = "Oregon State", "PENN" = "Penn", "PITT" = "Pittsburgh",
+  "PRIN" = "Princeton", "PSU" = "Penn State", "PUR" = "Purdue", "RID" = "Rider",
+  "RUT" = "Rutgers", "SDSU" = "South Dakota State", "SIUE" = "SIU Edwardsville", "STAN" = "Stanford",
+  "UNC" = "North Carolina", "UNCO" = "Northern Colorado", "UNI" = "Northern Iowa", "UVA" = "Virginia",
+  "UVU" = "Utah Valley", "VMI" = "VMI", "VT" = "Virginia Tech", "WIS" = "Wisconsin",
+  "WVU" = "West Virginia", "WYO" = "Wyoming"
+)
+
+school_states <- c(
+  "AF" = "CO", "AMER" = "DC", "APP" = "NC", "ARMY" = "NY",
+  "ASU" = "AZ", "BELL" = "KY", "BING" = "NY", "BLO" = "PA",
+  "BLOO" = "PA", "BRWN" = "RI", "BUCK" = "PA", "BUFF" = "NY",
+  "CAMP" = "NC", "CBU" = "CA", "CHAT" = "TN", "CIT" = "SC",
+  "CLAR" = "PA", "CMU" = "MI", "COL" = "NY", "COR" = "NY",
+  "CP" = "CA", "POLY" = "CA", "CSU" = "OH", "CSUB" = "CA",
+  "DREX" = "PA", "DUKE" = "NC", "EDIN" = "PA", "F&M" = "PA",
+  "FM" = "PA", "GMU" = "VA", "GW" = "NC", "HAR" = "MA",
+  "HARV" = "MA", "HOF" = "NY", "ILL" = "IL", "IND" = "IN",
+  "IOWA" = "IA", "ISU" = "IA", "KENT" = "OH", "LEH" = "PA",
+  "LH" = "PA", "LHU" = "PA", "LIU" = "NY", "LR" = "AR",
+  "UALR" = "AR", "MD" = "MD", "MICH" = "MI", "MINN" = "MN",
+  "MIZZ" = "MO", "MSU" = "MI", "NAVY" = "MD", "NCST" = "NC",
+  "NDSU" = "ND", "NEB" = "NE", "NIU" = "IL", "NW" = "IL",
+  "OHIO" = "OH", "OHST" = "OH", "OKLA" = "OK", "OU" = "OK",
+  "OKST" = "OK", "ORST" = "OR", "PENN" = "PA", "PITT" = "PA",
+  "PRIN" = "NJ", "PSU" = "PA", "PUR" = "IN", "RID" = "NJ",
+  "RUT" = "NJ", "SDSU" = "SD", "SIUE" = "IL", "STAN" = "CA",
+  "UNC" = "NC", "UNCO" = "CO", "UNI" = "IA", "UVA" = "VA",
+  "UVU" = "UT", "VMI" = "VA", "VT" = "VA", "WIS" = "WI",
+  "WVU" = "WV", "WYO" = "WY"
+)
+
+state_lookup <- tibble(
+  state_abb = c(state.abb, "DC"),
+  state_name = c(state.name, "District of Columbia")
+)
+
+wrestler_totals <- records |>
+  mutate(
+    school_name = recode(school_code, !!!school_names, .default = school_code),
+    state_abb = unname(school_states[school_code])
+  ) |>
+  group_by(state_abb, wrestler, school_name) |>
+  summarise(
+    total_wins = sum(wins),
+    total_losses = sum(losses),
+    win_pct = 100 * total_wins / (total_wins + total_losses),
+    .groups = "drop"
+  )
+
+state_stats <- wrestler_totals |>
+  arrange(state_abb, desc(win_pct), desc(total_wins)) |>
+  group_by(state_abb) |>
+  summarise(
+    n_wrestlers = n(),
+    avg_win_pct = round(mean(win_pct), 1),
+    top_wrestlers = paste(
+      head(
+        paste0(
+          "• ", wrestler, " (", school_name, ") — ",
+          round(win_pct, 1), "% (", total_wins, "-", total_losses, ")"
+        ),
+        5
+      ),
+      collapse = "<br>"
+    ),
+    .groups = "drop"
+  )
+
+map_data <- state_lookup |>
+  left_join(state_stats, by = "state_abb") |>
+  mutate(
+    hover_text = if_else(
+      is.na(avg_win_pct),
+      paste0("<b>", state_name, "</b><br>No NCAA DI tournament wrestlers (2022–2025)"),
+      paste0(
+        "<b>", state_name, "</b><br>",
+        "Average Win %: ", avg_win_pct, "% (", n_wrestlers, " wrestlers)<br><br>",
+        "<b>Top Wrestlers by Win %:</b><br>",
+        top_wrestlers
+      )
+    )
+  )
+
+plot_geo(locationmode = "USA-states") |>
+  add_trace(
+    data = filter(map_data, is.na(avg_win_pct)),
+    z = 0,
+    locations = ~state_abb,
+    text = ~hover_text,
+    hoverinfo = "text",
+    colorscale = list(c(0, "#e5e7eb"), c(1, "#e5e7eb")),
+    showscale = FALSE,
+    marker = list(line = list(color = "#ffffff", width = 1.2))
+  ) |>
+  add_trace(
+    data = filter(map_data, !is.na(avg_win_pct)),
+    z = ~avg_win_pct,
+    locations = ~state_abb,
+    text = ~hover_text,
+    hoverinfo = "text",
+    colorscale = "Blues",
+    colorbar = list(title = "Avg Win %"),
+    marker = list(line = list(color = "#ffffff", width = 1.2))
+  ) |>
+  layout(
+    title = "Top NCAA DI Wrestlers & Average Win % by College State (2022–2025)",
+    geo = list(
+      scope = "usa",
+      projection = list(type = "albers usa"),
+      lakecolor = "#ffffff"
+    )
+  )
+```
+
+## Average Wrestler Win Percentage by State
+
+The chart below compares states with NCAA Division I tournament qualifiers by the average win percentage of their wrestlers across the 2022–2025 seasons.
+
+```{r}
+#| fig-height: 8
+#| fig-width: 9
+
+chart_data <- map_data |>
+  filter(!is.na(avg_win_pct)) |>
+  mutate(state_name = fct_reorder(state_name, avg_win_pct))
+
+ggplot(chart_data, aes(x = avg_win_pct, y = state_name)) +
+  geom_col(fill = "#2c7fb8") +
+  geom_text(
+    aes(label = paste0(avg_win_pct, "% (n = ", n_wrestlers, ")")),
+    hjust = -0.08,
+    size = 3.3
+  ) +
+  scale_x_continuous(
+    limits = c(0, 92),
+    labels = \(x) paste0(x, "%")
+  ) +
+  labs(
+    title = "Average NCAA Tournament Wrestler Win % by College State",
+    subtitle = "2022–2025 NCAA Division I qualifiers (bar labels show average win % and wrestler count)",
+    x = "Average Win Percentage",
+    y = NULL
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(panel.grid.major.y = element_blank())
+```
